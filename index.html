@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -34,35 +35,35 @@
             <h1>Cruise Queen</h1>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                scrambled it to make a type specimen book./p>
+                scrambled it to make a type specimen book.</p>
         </div>
 
 
-        <div class="booking-form">
+        <div class="booking-form" id="booking-from">
             <h3>Book Ocean Time</h3>
             <div class="input-group">
-                <label for="">Flying From</label>
-                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                <label for="flying-from">Flying From</label>
+                <input class="inp-style" id="flying-from" type="text" name="" placeholder="Dhake, Bangladesh">
             </div>
             <div class="input-group">
-                <label for="">Flying To</label>
-                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                <label for="flying-to">Flying To</label>
+                <input class="inp-style" id="flying-to" type="text" name="" placeholder="New York, United States">
             </div>
             <div class="inputs">
                 <div class="input-group">
-                    <label" for="">Departure</label>
-                        <input class="inp-style" type="date" name="">
+                    <label" for="departure">Departure</label>
+                        <input class="inp-style" id="departure" type="date" name="">
                 </div>
                 <div class="input-group">
-                    <label for="">Return</label>
-                    <input class="inp-style" type="date" name="">
+                    <label for="return-date">Return</label>
+                    <input class="inp-style" id="return-date" type="date" name="">
                 </div>
             </div>
             <div class="input-group f-class">
                 <div>
                     <label for="firstClass-ticket-count">First Class ($<span id="firstClass-totalCost">150</span>
                         )</label>
-                    <input id="firstClass-ticket-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="firstClass-ticket-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <p>
@@ -77,7 +78,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input id="economy-ticket-count" class="inp-style inp-width" type="number" name="" value="1">
+                    <input id="economy-ticket-count" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <p> <button class="plus-minus-btn" id="economy-ticket-increase" onclick="ticket(true,'economy')"><i
@@ -93,7 +94,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$<span id="sub-total">500</span> </p>
+                        <p>$<span id="sub-total">0</span> </p>
                     </div>
                 </div>
 
@@ -102,7 +103,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$<span id="vat">50</span></p>
+                        <p>$<span id="vat">0</span></p>
                     </div>
                 </div>
                 <hr>
@@ -111,18 +112,84 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$<span id="total-amount" >550</span></p>
+                        <p>$<span id="total-amount">0</span></p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button class="btn-style" onclick="bookingConfirm()">Book Now</button>
         </div>
+        <div class="book-confirm" id="booking-confirm">
+            <h1>congratulations!!</h1>
+            <br>
+            <p>
+            <div class="booked">
+                <h3>Summary</h3> 
+                <br>
+                Flying From: <b id="booked-from"></b><br>
+                Flying To: <b id="booked-to"></b><br>
+                Departure: <b id="booked-departure"></b><br>
+                Return Date: <b id="booked-return"></b><br>
+            </div>
+
+            <br>
+            <fieldset class="booked-calculations">
+                <div class="amount ">
+                    <div class="left">Subtotal</div>
+                    <div class="right">$<span id="booked-subTotal"></span></div>
+                </div>
+                <div class="amount">
+                    <div class="left"> Charge 10% VAT</div>
+                    <div class="right">$<span id="booked-vat"></span></div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">Total</div>
+                    <div class="right">$<span id="booked-total"></span></div>
+                </div>
+
+            </fieldset>
+
+            </p>
+        </div>
+
     </main>
 
     <!--Thank You-->
 
     <script>
-        
+        function bookingConfirm() {
+            let flyingFrom = document.getElementById("flying-from").value;
+            let flyingTo = document.getElementById("flying-to").value;
+            let departure = document.getElementById("departure").value;
+            let returnDate = document.getElementById("return-date").value;
+            let total = parseInt(document.getElementById("total-amount").innerText);
+            if (flyingFrom == "") {
+                alert("Enter your Flying From Location");
+            }
+            else if (flyingTo == "") {
+                alert("Enter your Flying To Location");
+            }
+            else if (departure == "") {
+                alert("Enter Your Departre date");
+            }
+            else if (returnDate == "") {
+                alert("Enter Your Retrun date");
+            }
+            else if (total < 100) {
+                alert("Please Add Your Ticket First");
+            }
+            else {
+                document.getElementById("booking-from").style.display = "none";
+                document.getElementById("booking-confirm").style.display = "block";
+                document.getElementById("booked-from").innerHTML = flyingFrom;
+                document.getElementById("booked-to").innerHTML = flyingTo;
+                document.getElementById("booked-departure").innerHTML = departure;
+                document.getElementById("booked-return").innerHTML = returnDate;
+                document.getElementById("booked-subTotal").innerHTML = document.getElementById("sub-total").innerText;
+                document.getElementById("booked-vat").innerHTML = document.getElementById("vat").innerText;
+                document.getElementById("booked-total").innerHTML = document.getElementById("total-amount").innerText;
+            }
+        }
         function ticket(isIncrease, ticketType) {
             let currentTicket = document.getElementById(ticketType + "-ticket-count").value;
             if (isIncrease == true) {
@@ -136,11 +203,11 @@
             let firstClassTicket = parseInt(document.getElementById("firstClass-ticket-count").value);
             let economyTicket = parseInt(document.getElementById("economy-ticket-count").value);
             let subTotal = calculations(firstClassTicket, economyTicket);
-            document.getElementById("sub-total").innerText=subTotal;
-            let vat = subTotal*0.1;
-            document.getElementById("vat").innerText=vat;
-            let total = parseInt(subTotal)+parseInt(vat);
-            document.getElementById("total-amount").innerText=total;
+            document.getElementById("sub-total").innerText = subTotal;
+            let vat = subTotal * 0.1;
+            document.getElementById("vat").innerText = vat;
+            let total = parseInt(subTotal) + parseInt(vat);
+            document.getElementById("total-amount").innerText = total;
         }
         function calculations(firstClass, economy) {
             let firstClassTicketCost = firstClass * 150;
